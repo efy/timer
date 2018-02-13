@@ -16,12 +16,16 @@ const (
 )
 
 var (
+	// Overwritten with ldflag at build time
+	version = "master"
+
 	// Commands
 	start  = flag.Bool("start", false, "Start a timer Requires label to be passed")
 	stop   = flag.Bool("stop", false, "Stop the timer with the providied label")
 	delete = flag.Bool("delete", false, "Delete the timer with the specified label")
 	new    = flag.Bool("new", false, "Start a new timer with the provided label")
 	list   = flag.Bool("list", false, "List the active timers")
+	v      = flag.Bool("version", false, "Print the version")
 
 	// Options
 	label = flag.String("label", "", "Label of the timer to operate on when using a command")
@@ -32,6 +36,11 @@ func main() {
 	flag.Parse()
 
 	var f *os.File
+
+	if *v {
+		fmt.Println("version:", version)
+		os.Exit(0)
+	}
 
 	if *file == "" {
 		usr, err := user.Current()
