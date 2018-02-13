@@ -1,0 +1,9 @@
+builds:
+  - binary: timer
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd46
+      - arm
