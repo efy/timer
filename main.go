@@ -43,12 +43,16 @@ func main() {
 	}
 
 	if *file == "" {
-		usr, err := user.Current()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+		if tf := os.Getenv("TIMERS_FILE"); tf != "" {
+			*file = tf
+		} else {
+			usr, err := user.Current()
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			*file = usr.HomeDir + "/.timers"
 		}
-		*file = usr.HomeDir + "/.timers"
 	}
 
 	f, err := os.Open(*file)
